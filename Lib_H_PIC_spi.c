@@ -38,7 +38,7 @@ void PIC_SPI1_CheckRxError(void);
 //==============================================================================
 #if defined (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
 
-void PIC_SPI1_Init_PriPres_64_1_SecPres_1_1_IntDis(void)
+void PIC_SPI1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
 {
     OpenSPI1(ENABLE_SCK_PIN
              & ENABLE_SDO_PIN
