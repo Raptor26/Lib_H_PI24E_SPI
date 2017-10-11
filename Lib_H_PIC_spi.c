@@ -35,8 +35,30 @@ void PIC_SPI1_CheckRxError(void);
 //******************************************************************************
 // Секция описания функций (сначала глобальных, потом локальных)
 
-/*============================================================================*/
+//==============================================================================
 #if defined (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
+
+void PIC_SPI1_Init_PriPres_64_1_SecPres_1_1_IntDis(void)
+{
+    OpenSPI1(ENABLE_SCK_PIN
+             & ENABLE_SDO_PIN
+             & SPI_MODE16_OFF
+             & SPI_SMP_ON
+             & SPI_CKE_ON
+             & SLAVE_ENABLE_OFF
+             & CLK_POL_ACTIVE_HIGH
+             & MASTER_ENABLE_ON
+             & SEC_PRESCAL_1_1
+             & PRI_PRESCAL_64_1,
+             FRAME_ENABLE_ON
+             & FRAME_SYNC_OUTPUT
+             & FRAME_POL_ACTIVE_HIGH
+             & FRAME_SYNC_EDGE_COINCIDE
+             & FIFO_BUFFER_DISABLE,
+             SPI_ENABLE
+             & SPI_IDLE_CON
+             & SPI_RX_OVFLOW_CLR);
+}
 
 /**
  * @brief   Функция проверяет модуль SPI1 на наличие переполнения и сбрасывает флаг
