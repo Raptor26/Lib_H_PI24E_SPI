@@ -35,8 +35,74 @@ void PIC_SPI1_CheckRxError(void);
 //******************************************************************************
 // Секция описания функций (сначала глобальных, потом локальных)
 
-/*============================================================================*/
+//==============================================================================
 #if defined (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
+
+/**
+ *  @brief  Функция выполняет конфигурирование модуля SPI_1 со следующими 
+ *  параметрами:
+ *      Главный предделитель - 1/64;
+ *      Вторичный предделитель - 1/1;
+ *      Прерывания - отключены;
+ *  @note   Функция конфигурирования проверена на работе с датчиком MPU6000;
+ */
+void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
+{
+    unsigned int spi_con_1_value = ENABLE_SCK_PIN
+            & ENABLE_SDO_PIN
+            & SPI_MODE16_OFF
+            & SPI_SMP_ON
+            & SPI_CKE_ON
+            & SLAVE_ENABLE_OFF
+            & CLK_POL_ACTIVE_HIGH
+            & MASTER_ENABLE_ON
+            & SEC_PRESCAL_1_1
+            & PRI_PRESCAL_64_1;
+    unsigned int spi_con_2_value = FRAME_ENABLE_OFF
+            & FRAME_SYNC_OUTPUT
+            & FRAME_POL_ACTIVE_LOW
+            & FRAME_SYNC_EDGE_PRECEDE;
+    unsigned int spi_stat_value = SPI_ENABLE
+            & SPI_IDLE_CON
+            & SPI_RX_OVFLOW_CLR;
+
+    OpenSPI1(spi_con_1_value,
+             spi_con_2_value,
+             spi_stat_value);
+}
+
+/**
+ *  @brief  Функция выполняет конфигурирование модуля SPI_1 со следующими 
+ *  параметрами:
+ *      Главный предделитель - 1/4;
+ *      Вторичный предделитель - 1/1;
+ *      Прерывания - отключены;
+ *  @note   Функция конфигурирования проверена на работе с датчиком MPU6000;
+ */
+void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void)
+{
+    unsigned int spi_con_1_value = ENABLE_SCK_PIN
+            & ENABLE_SDO_PIN
+            & SPI_MODE16_OFF
+            & SPI_SMP_ON
+            & SPI_CKE_ON
+            & SLAVE_ENABLE_OFF
+            & CLK_POL_ACTIVE_HIGH
+            & MASTER_ENABLE_ON
+            & SEC_PRESCAL_1_1
+            & PRI_PRESCAL_4_1;
+    unsigned int spi_con_2_value = FRAME_ENABLE_OFF
+            & FRAME_SYNC_OUTPUT
+            & FRAME_POL_ACTIVE_LOW
+            & FRAME_SYNC_EDGE_PRECEDE;
+    unsigned int spi_stat_value = SPI_ENABLE
+            & SPI_IDLE_CON
+            & SPI_RX_OVFLOW_CLR;
+
+    OpenSPI1(spi_con_1_value,
+             spi_con_2_value,
+             spi_stat_value);
+}
 
 /**
  * @brief   Функция проверяет модуль SPI1 на наличие переполнения и сбрасывает флаг
@@ -118,7 +184,6 @@ void PIC_SPI1_Maste_Receiver(uint8_t *pRxData, uint16_t cnt)
     for (i = 0; i < cnt; i++)
     {
         *pRxData++ = PIC_SPI1_Master_IO(emptData);
-        //        pRxData++;
     }
 }
 #endif //   (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
