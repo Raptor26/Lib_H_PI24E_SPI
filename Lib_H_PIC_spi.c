@@ -38,60 +38,70 @@ void PIC_SPI1_CheckRxError(void);
 //==============================================================================
 #if defined (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
 
-void PIC_SPI1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
+/**
+ *  @brief  Функция выполняет конфигурирование модуля SPI_1 со следующими 
+ *  параметрами:
+ *      Главный предделитель - 1/64;
+ *      Вторичный предделитель - 1/1;
+ *      Прерывания - отключены;
+ *  @note   Функция конфигурирования проверена на работе с датчиком MPU6000;
+ */
+void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
 {
-    OpenSPI1(ENABLE_SCK_PIN
-             & ENABLE_SDO_PIN
-             & SPI_MODE16_OFF
-             & SPI_SMP_ON
-             & SPI_CKE_ON
-             & SLAVE_ENABLE_OFF
-             & CLK_POL_ACTIVE_HIGH
-             & MASTER_ENABLE_ON
-             & SEC_PRESCAL_1_1
-             & PRI_PRESCAL_64_1,
-             FRAME_ENABLE_ON
-             & FRAME_SYNC_OUTPUT
-             & FRAME_POL_ACTIVE_HIGH
-             & FRAME_SYNC_EDGE_COINCIDE
-             & FIFO_BUFFER_DISABLE,
-             SPI_ENABLE
-             & SPI_IDLE_CON
-             & SPI_RX_OVFLOW_CLR);
+    unsigned int spi_con_1_value = ENABLE_SCK_PIN
+            & ENABLE_SDO_PIN
+            & SPI_MODE16_OFF
+            & SPI_SMP_ON
+            & SPI_CKE_ON
+            & SLAVE_ENABLE_OFF
+            & CLK_POL_ACTIVE_HIGH
+            & MASTER_ENABLE_ON
+            & SEC_PRESCAL_1_1
+            & PRI_PRESCAL_64_1;
+    unsigned int spi_con_2_value = FRAME_ENABLE_OFF
+            & FRAME_SYNC_OUTPUT
+            & FRAME_POL_ACTIVE_LOW
+            & FRAME_SYNC_EDGE_PRECEDE;
+    unsigned int spi_stat_value = SPI_ENABLE
+            & SPI_IDLE_CON
+            & SPI_RX_OVFLOW_CLR;
+
+    OpenSPI1(spi_con_1_value,
+             spi_con_2_value,
+             spi_stat_value);
 }
 
-void PIC_SPI1_Init_Merlin(void)
+/**
+ *  @brief  Функция выполняет конфигурирование модуля SPI_1 со следующими 
+ *  параметрами:
+ *      Главный предделитель - 1/4;
+ *      Вторичный предделитель - 1/1;
+ *      Прерывания - отключены;
+ *  @note   Функция конфигурирования проверена на работе с датчиком MPU6000;
+ */
+void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void)
 {
-    //конфигураци¤ SPI1 в режиме ведущего
+    unsigned int spi_con_1_value = ENABLE_SCK_PIN
+            & ENABLE_SDO_PIN
+            & SPI_MODE16_OFF
+            & SPI_SMP_ON
+            & SPI_CKE_ON
+            & SLAVE_ENABLE_OFF
+            & CLK_POL_ACTIVE_HIGH
+            & MASTER_ENABLE_ON
+            & SEC_PRESCAL_1_1
+            & PRI_PRESCAL_4_1;
+    unsigned int spi_con_2_value = FRAME_ENABLE_OFF
+            & FRAME_SYNC_OUTPUT
+            & FRAME_POL_ACTIVE_LOW
+            & FRAME_SYNC_EDGE_PRECEDE;
+    unsigned int spi_stat_value = SPI_ENABLE
+            & SPI_IDLE_CON
+            & SPI_RX_OVFLOW_CLR;
 
-    IFS0bits.SPI1IF = 0;
-    IEC0bits.SPI1IE = 0;
-
-    SPI1STATbits.SPIEN = 0; //отключить модуль
-    SPI1CON1 = 0;
-    SPI1CON2 = 0;
-    SPI1CON1bits.MSTEN = 1; //Master Mode Enabled
-    SPI1CON1bits.DISSCK = 0; //разрешение внутреннего тактировани¤
-    SPI1CON1bits.DISSDO = 0; //вывод SDO1 контролируетс¤ модулем
-    SPI1CON1bits.MODE16 = 1; //данные в word-wide mode (16 bits)
-    SPI1CON1bits.SMP = 1; //входные данные выбираютс¤ в середине цикла
-    SPI1CON1bits.CKE = 0; //Serial output data changes on transition from active 
-    //clock state to Idle clock state
-    SPI1CON1bits.CKP = 1; //Idle state for clock is a high level active state is a low level
-    SPI1CON1bits.SSEN = 1; //SSx pin is not used by the module.
-    //выбор тактовой частоты
-    //частота шины 1 ћ√ц, при частоте процессора 64 ћ√ц
-    SPI1CON1bits.PPRE = 0b00; //первый делитель 64:1
-    SPI1CON1bits.SPRE = 0b111; //второй делитель 1:1
-
-    //    SPI1STATbits.SISEL = 0b101; //прерывание по окончании передачи
-
-    //    SPI1STATbits.
-
-    SPI1STATbits.SPIEN = 1; //включить модуль
-
-    IFS0bits.SPI1IF = 0; //сброс флага прерываний
-    IEC0bits.SPI1IE = 0; //запретить прерывани¤ от SPI1
+    OpenSPI1(spi_con_1_value,
+             spi_con_2_value,
+             spi_stat_value);
 }
 
 /**
@@ -174,7 +184,6 @@ void PIC_SPI1_Maste_Receiver(uint8_t *pRxData, uint16_t cnt)
     for (i = 0; i < cnt; i++)
     {
         *pRxData++ = PIC_SPI1_Master_IO(emptData);
-        //        pRxData++;
     }
 }
 #endif //   (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
