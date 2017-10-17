@@ -48,6 +48,7 @@ void PIC_SPI1_CheckRxError(void);
  */
 void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
 {
+    CloseSPI1();
     unsigned int spi_con_1_value = ENABLE_SCK_PIN
             & ENABLE_SDO_PIN
             & SPI_MODE16_OFF
@@ -81,6 +82,7 @@ void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
  */
 void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void)
 {
+    CloseSPI1();
     unsigned int spi_con_1_value = ENABLE_SCK_PIN
             & ENABLE_SDO_PIN
             & SPI_MODE16_OFF
@@ -106,6 +108,7 @@ void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void)
 
 void PIC_SPI_1_Init_PriPRES_1_1_SecPRES_2_1_IntDis(void)
 {
+    CloseSPI1();
     unsigned int spi_con_1_value = ENABLE_SCK_PIN
             & ENABLE_SDO_PIN
             & SPI_MODE16_OFF
