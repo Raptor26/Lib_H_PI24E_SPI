@@ -48,6 +48,7 @@ void PIC_SPI1_CheckRxError(void);
  */
 void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
 {
+    CloseSPI1();
     unsigned int spi_con_1_value = ENABLE_SCK_PIN
             & ENABLE_SDO_PIN
             & SPI_MODE16_OFF
@@ -81,6 +82,7 @@ void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void)
  */
 void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void)
 {
+    CloseSPI1();
     unsigned int spi_con_1_value = ENABLE_SCK_PIN
             & ENABLE_SDO_PIN
             & SPI_MODE16_OFF
@@ -91,6 +93,32 @@ void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void)
             & MASTER_ENABLE_ON
             & SEC_PRESCAL_1_1
             & PRI_PRESCAL_4_1;
+    unsigned int spi_con_2_value = FRAME_ENABLE_OFF
+            & FRAME_SYNC_OUTPUT
+            & FRAME_POL_ACTIVE_LOW
+            & FRAME_SYNC_EDGE_PRECEDE;
+    unsigned int spi_stat_value = SPI_ENABLE
+            & SPI_IDLE_CON
+            & SPI_RX_OVFLOW_CLR;
+
+    OpenSPI1(spi_con_1_value,
+             spi_con_2_value,
+             spi_stat_value);
+}
+
+void PIC_SPI_1_Init_PriPRES_1_1_SecPRES_2_1_IntDis(void)
+{
+    CloseSPI1();
+    unsigned int spi_con_1_value = ENABLE_SCK_PIN
+            & ENABLE_SDO_PIN
+            & SPI_MODE16_OFF
+            & SPI_SMP_ON
+            & SPI_CKE_ON
+            & SLAVE_ENABLE_OFF
+            & CLK_POL_ACTIVE_HIGH
+            & MASTER_ENABLE_ON
+            & SEC_PRESCAL_2_1
+            & PRI_PRESCAL_1_1;
     unsigned int spi_con_2_value = FRAME_ENABLE_OFF
             & FRAME_SYNC_OUTPUT
             & FRAME_POL_ACTIVE_LOW
