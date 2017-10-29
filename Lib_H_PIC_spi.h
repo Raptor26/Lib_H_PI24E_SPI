@@ -53,9 +53,9 @@
 //  SPI1
 //------------------------------------------------------------------------------
 //  Функции инициализации модуля SPI_1
-extern void PIC_SPI_1_Init_PriPRES_64_1_SecPRES_1_1_IntDis(void);
-extern void PIC_SPI_1_Init_PriPRES_4_1_SecPRES_1_1_IntDis(void);
-extern void PIC_SPI_1_Init_PriPRES_1_1_SecPRES_2_1_IntDis(void);
+extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis(void);
+extern void PIC_Init_SPI_1_PriPRES_4_1_SecPRES_1_1_IntDis(void);
+extern void PIC_Init_SPI_1_PriPRES_1_1_SecPRES_2_1_IntDis(void);
 //------------------------------------------------------------------------------
 
 
