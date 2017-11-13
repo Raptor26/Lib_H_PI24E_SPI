@@ -53,20 +53,34 @@
 //  SPI1
 //------------------------------------------------------------------------------
 //  Функции инициализации модуля SPI_1
-extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis(void);
-extern void PIC_Init_SPI_1_PriPRES_4_1_SecPRES_1_1_IntDis(void);
-extern void PIC_Init_SPI_1_PriPRES_1_1_SecPRES_2_1_IntDis(void);
+extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis_8bits(void);
+extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis_16bits(void);
+extern void PIC_Init_SPI_1_PriPRES_4_1_SecPRES_1_1_IntDis_8bits(void);
+extern void PIC_Init_SPI_1_PriPRES_1_1_SecPRES_2_1_IntDis_8bits(void);
 //------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
 //  Функции для работы с модулем SPI_1
-extern uint8_t PIC_SPI1_Master_IO(uint8_t txData);
-extern void PIC_SPI1_Master_TransmitReceive(uint8_t *pTxData,
+extern uint8_t PIC_SPI1_Master_IO_8bits(uint8_t txData);
+extern uint16_t PIC_SPI1_Master_IO_16bits(uint16_t txData);
+
+extern void PIC_SPI1_Master_TransmitReceive_8bits(uint8_t *pTxData,
         uint8_t *pRxData,
         uint16_t cnt);
-extern void PIC_SPI1_Master_Transmit(uint8_t *pTxData, uint16_t cnt);
-extern void PIC_SPI1_Maste_Receiver(uint8_t *pRxData, uint16_t cnt);
+extern void PIC_SPI1_Master_TransmitReceive_16bits(uint16_t *pTxData,
+        uint16_t *pRxData,
+        uint16_t cnt);
+
+extern void PIC_SPI1_Master_Transmit_8bits(uint8_t *pTxData,
+        uint16_t cnt);
+extern void PIC_SPI1_Master_Transmit_16bits(uint16_t *pTxData,
+        uint16_t cnt);
+
+extern void PIC_SPI1_Maste_Receiver_8bits(uint8_t *pRxData,
+        uint16_t cnt);
+extern void PIC_SPI1_Maste_Receiver_16bits(uint16_t *pRxData,
+        uint16_t cnt);
 //------------------------------------------------------------------------------
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
