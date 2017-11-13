@@ -7,7 +7,7 @@
 
 //******************************************************************************
 //  Секция include: здесь подключается заголовочный файл к модулю
-#include "Lib_H_pic_spi.h"
+#include "Lib_H_PIC_spi.h"
 //******************************************************************************
 
 
@@ -239,7 +239,7 @@ void PIC_SPI1_Master_Transmit_16bits(uint16_t *pTxData, uint16_t cnt)
  */
 void PIC_SPI1_Maste_Receiver_8bits(uint8_t *pRxData, uint16_t cnt)
 {
-    uint8_t emptData = 0; //        Пустые данные для отправки на шину SPI
+    uint8_t emptData = 0xFF; //         Пустые данные для отправки на шину SPI
     uint16_t i = 0;
     for (i = 0; i < cnt; i++)
     {
@@ -255,7 +255,7 @@ void PIC_SPI1_Maste_Receiver_8bits(uint8_t *pRxData, uint16_t cnt)
  */
 void PIC_SPI1_Maste_Receiver_16bits(uint16_t *pRxData, uint16_t cnt)
 {
-    uint8_t emptData = 0; //        Пустые данные для отправки на шину SPI
+    uint16_t emptData = 0xFFFF; //      Пустые данные для отправки на шину SPI
     uint16_t i = 0;
     for (i = 0; i < cnt; i++)
     {
