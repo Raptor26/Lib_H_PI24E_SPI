@@ -1,4 +1,4 @@
-/** 
+/**
  * File:   Lib_H_PIC_spi_New.h
  * Author: m.isaev
  *
@@ -48,46 +48,34 @@
 
 //******************************************************************************
 //  Секция прототипов глобальных функций
+// ############################ //
+// <SPI 1> module <8 bits mode> //
+// ############################ //
 #if defined (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//  SPI1
-//------------------------------------------------------------------------------
-//  Функции инициализации модуля SPI_1
 extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis_8bits(void);
-extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis_16bits(void);
 extern void PIC_Init_SPI_1_PriPRES_4_1_SecPRES_1_1_IntDis_8bits(void);
 extern void PIC_Init_SPI_1_PriPRES_1_1_SecPRES_2_1_IntDis_8bits(void);
-//------------------------------------------------------------------------------
-
-
-//------------------------------------------------------------------------------
-//  Функции для работы с модулем SPI_1
-extern uint8_t PIC_SPI1_Master_IO_8bits(uint8_t txData);
-extern uint16_t PIC_SPI1_Master_IO_16bits(uint16_t txData);
 
 extern void PIC_SPI1_Master_TransmitReceive_8bits(uint8_t *pTxData,
         uint8_t *pRxData,
         uint16_t cnt);
+extern void PIC_SPI1_Master_Transmit_8bits(uint8_t *pTxData,
+        uint16_t cnt);
+extern void PIC_SPI1_Maste_Receiver_8bits(uint8_t *pRxData,
+        uint16_t cnt);
+
+
+// ############################# //
+// <SPI 1> module <16 bits mode> //
+// ############################# //
+extern void PIC_Init_SPI_1_PriPRES_64_1_SecPRES_1_1_IntDis_16bits(void);
 extern void PIC_SPI1_Master_TransmitReceive_16bits(uint16_t *pTxData,
         uint16_t *pRxData,
         uint16_t cnt);
-
-extern void PIC_SPI1_Master_Transmit_8bits(uint8_t *pTxData,
-        uint16_t cnt);
 extern void PIC_SPI1_Master_Transmit_16bits(uint16_t *pTxData,
-        uint16_t cnt);
-
-extern void PIC_SPI1_Maste_Receiver_8bits(uint8_t *pRxData,
         uint16_t cnt);
 extern void PIC_SPI1_Maste_Receiver_16bits(uint16_t *pRxData,
         uint16_t cnt);
-//------------------------------------------------------------------------------
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-//  SPI2
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 #endif //   (__dsPIC33E__) || (__PIC24H__) || (__PIC24E__)
 //******************************************************************************
 
